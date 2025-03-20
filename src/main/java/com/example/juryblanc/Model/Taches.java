@@ -12,12 +12,6 @@ public class Taches {
     private String description;
     private String ressourcenecessaire;
 
-
-
-
-
-
-
     public Taches(int id, String nomdutache, java.sql.Date datededebut, String datededefin, String description, String ressourcenecessaire) {
     }
 
