@@ -1,6 +1,8 @@
 package Controllers;
 
+import com.example.juryblanc.DAO.ProjetDAO;
 import com.example.juryblanc.DAO.TacheDAO;
+import com.example.juryblanc.Model.Projets;
 import com.example.juryblanc.Model.Taches;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -11,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,11 +21,13 @@ import java.util.List;
 @WebServlet("/tache")
 public class TacheServlet extends HttpServlet {
     private TacheDAO tacheDAO;
+    private ProjetDAO projetDAO;
 
     @Override
     public void init() {
         try {
             tacheDAO = new TacheDAO();
+            projetDAO = new ProjetDAO();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -63,6 +68,9 @@ public class TacheServlet extends HttpServlet {
                 case "list":
                      afficherTache(request, response);
                      break;
+                case "ajoutertacheprojet":
+                         tacheparprojet(request,response);
+                         break;
                 default:
                 response.sendRedirect("/tache?action=list");
             }
@@ -70,24 +78,34 @@ public class TacheServlet extends HttpServlet {
           throw new ServletException("Erreur SQL", e);
        }
     }
-
-    private void deleteTache(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ClassNotFoundException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        tacheDAO.supprimerTache(id);
-        response.sendRedirect("tache?action=afficher");
+    private void tacheparprojet(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int projet_id = Integer.parseInt(request.getParameter("projet_id"));
+        Projets projets = projetDAO.getProjetById(projet_id);
+        List<Taches> taches = tacheDAO.listerTachesParProjet(projet_id);
+        request.setAttribute("projets", projets);
+        request.setAttribute("taches", taches);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Tache/afficherTache.jsp");
+        dispatcher.forward(request, response);
     }
+
 
     private void editeTache(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         int projet_id = Integer.parseInt(request.getParameter("projet_id"));
-        String nomduprojet=request.getParameter("nomduprojet");
-        Date datededebut=java.sql.Date.valueOf(request.getParameter("datededebut"));
-        Date datedefin=java.sql.Date.valueOf(request.getParameter("datedefin"));
-        String description=request.getParameter("description");
-        String ressourcenecessaire=request.getParameter("ressourcenecessaire");
-        Taches taches =new Taches(id,projet_id,nomduprojet,datededebut,datedefin,description,ressourcenecessaire);
+        String nomdutache = request.getParameter("nomdutache"); // Correction ici
+        Date datededebut = java.sql.Date.valueOf(request.getParameter("datededebut"));
+        Date datedefin = java.sql.Date.valueOf(request.getParameter("datedefin"));
+        String description = request.getParameter("description");
+        String ressourcenecessaire = request.getParameter("ressourcenecessaire");
+        Taches taches = new Taches(id, projet_id, nomdutache, datededebut, datedefin, description, ressourcenecessaire);
         tacheDAO.modifierTache(taches);
-        response.sendRedirect("tache?action=afficher");
+        response.sendRedirect("/tache?action=list"); // Redirection corrigée
+    }
+
+    private void deleteTache(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ClassNotFoundException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        tacheDAO.supprimerTache(id);
+        response.sendRedirect("/tache?action=list"); // Redirection corrigée
     }
 
     private void afficherTache(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -97,10 +115,13 @@ public class TacheServlet extends HttpServlet {
         dispatcher.forward(request,response);
     }
 
-    public void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Logique pour afficher le formulaire
+    public void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        ProjetDAO projetDAO = new ProjetDAO();
+        List<Projets> projetsList = projetDAO.afficherProjets();
+        request.setAttribute("projetsList", projetsList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Tache/ajouterTache.jsp");
         dispatcher.forward(request, response);
+
     }
 
     private void afficherTacheById(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -116,32 +137,37 @@ public class TacheServlet extends HttpServlet {
             String projetIdParam = request.getParameter("projet_id");
             int projet_id = (projetIdParam != null && !projetIdParam.isEmpty()) ? Integer.parseInt(projetIdParam) : 0;
 
-            String nomduprojet = request.getParameter("nomduprojet");
+            String nomdutache = request.getParameter("nomdutache");
             String datededebutParam = request.getParameter("datededebut");
             String datedefinParam = request.getParameter("datedefin");
 
-            java.sql.Date datededebut = (datededebutParam != null && !datededebutParam.isEmpty()) ? java.sql.Date.valueOf(datededebutParam) : null;
-            java.sql.Date datedefin = (datedefinParam != null && !datedefinParam.isEmpty()) ? java.sql.Date.valueOf(datedefinParam) : null;
+            if (datededebutParam == null || datededebutParam.isEmpty() || datedefinParam == null || datedefinParam.isEmpty()) {
+                request.setAttribute("error", "Les dates de début et de fin sont obligatoires.");
+                showNewForm(request, response); // Réaffiche le formulaire avec l'erreur
+                return;
+            }
+
+            java.sql.Date datededebut = java.sql.Date.valueOf(datededebutParam);
+            java.sql.Date datedefin = java.sql.Date.valueOf(datedefinParam);
 
             String description = request.getParameter("description");
             String ressourcenecessaire = request.getParameter("ressourcenecessaire");
 
-            if (nomduprojet == null || nomduprojet.isEmpty() || datededebut == null || datedefin == null) {
-                request.setAttribute("error", "Tous les champs obligatoires doivent être remplis.");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/Tache/ajouterTache.jsp");
-                dispatcher.forward(request, response);
+            if (nomdutache == null || nomdutache.isEmpty()) {
+                request.setAttribute("error", "Le nom de la tâche est obligatoire.");
+                showNewForm(request, response);
                 return;
             }
 
-            Taches taches = new Taches(projet_id, nomduprojet, datededebut, datedefin, description, ressourcenecessaire);
+            Taches taches = new Taches(0, projet_id, nomdutache, datededebut, datedefin, description, ressourcenecessaire);
             tacheDAO.ajouterTache(taches);
-            response.sendRedirect("/tache?action=list");
+            response.sendRedirect("/tache?action=list"); // Redirection vers la liste
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Erreur de format numérique : " + e.getMessage());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Tache/ajouterTache.jsp");
-            dispatcher.forward(request, response);
+            showNewForm(request, response);
+        } catch (IllegalArgumentException e) {
+            request.setAttribute("error", "Format de date invalide. Utilisez le format AAAA-MM-JJ.");
+            showNewForm(request, response);
         }
     }
-
-
 }

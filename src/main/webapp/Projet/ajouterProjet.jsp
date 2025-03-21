@@ -25,7 +25,7 @@
         }
     </style>
 </head>
-<body style="background-image: url('téléchargement.jpg')">
+<body>
 <header style="background-color: black; height: 80px; display: flex; align-items: center; padding: 0 20px;">
     <div style="height: 30px; width: 150px; background-color: orange; border: none; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
         <h6 style="color: white; margin: 0;">ConstructionXpert</h6>
@@ -37,7 +37,7 @@
     </div>
 </header>
 <h3 style="margin-top: 10px" >Ajouter un Nouveau Projet</h3>
-<div style="width: 600px; margin-left: 400px; background-image: url('téléchargement.jpg')">
+<div style="width: 600px; margin-left: 400px;">
     <div class="card-body">
         <form action="projet" method="post">
             <input type="hidden" name="action" value="ajouter">

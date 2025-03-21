@@ -1,39 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Ajouter une Tâche</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Ajouter une Tâche</h1>
-<form action="tache?action=add" method="post">
-    <c:if test="${not empty projet_id}">
-        <input type="hidden" name="projet_id" value="${projet_id}">
-    </c:if>
-    <c:if test="${empty projet_id}">
-        <label for="projet_id">Projet:</label>
-        <select name="projet_id" id="projet_id">
-            <c:forEach items="${projets}" var="projet">
-                <option value="${projet.id_PR}">${projet.nom}</option>
-            </c:forEach>
-        </select><br><br>
-    </c:if>
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" required></textarea><br><br>
+<div class="container mt-5">
+    <h1>Ajouter une Tâche</h1>
+    <form action="tache" method="post">
+        <input type="hidden" name="action" value="add">
+        <div class="mb-3">
+            <label for="projet_id" class="form-label">Projet</label>
+            <select class="form-select" id="projet_id" name="projet_id" required>
+                <c:forEach var="projet" items="${projetsList}">
+                    <option value="${projet.id}">${projet.nomduprojet}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="nomduprojet" class="form-label">Nom de la Tâche</label>
+            <input type="text" class="form-control" id="nomduprojet" name="nomduprojet" required>
+        </div>
+        <div class="mb-3">
+            <label for="datededebut" class="form-label">Date de Début</label>
+            <input type="date" class="form-control" id="datededebut" name="datededebut" required>
+        </div>
+        <div class="mb-3">
+            <label for="datedefin" class="form-label">Date de Fin</label>
+            <input type="date" class="form-control" id="datedefin" name="datedefin" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="ressourcenecessaire" class="form-label">Ressources Nécessaires</label>
+            <input type="text" class="form-control" id="ressourcenecessaire" name="ressourcenecessaire">
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
 
-    <label for="datededebut">Date de Début:</label>
-    <input type="date" id="datededebut" name="datededebut" required><br><br>
-
-    <label for="datededefin">Date de Fin:</label>
-    <input type="date" id="datededefin" name="datededefin" required><br><br>
-
-    <label for="ressourcenecessaire">Ressources Nécessaires:</label>
-    <input type="text" id="ressourcenecessaire" name="ressourcenecessaire" required><br><br>
-
-    <input type="submit" value="Ajouter">
-</form>
-<a href="tache?action=list">Retour à la liste des tâches</a>
+</div>
 </body>
 </html>

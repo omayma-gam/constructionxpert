@@ -5,8 +5,37 @@
     <meta charset="UTF-8">
     <title>Modifier un Projet</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .header-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto; /* Pour aligner les boutons à droite */
+    margin-right: 20px;
+    }
+    .header-buttons button {
+    background-color: grey;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 5px 15px;
+    cursor: pointer;
+    }
+    .header-buttons button:hover {
+    background-color: palegoldenrod;
+    }
+</style>
 </head>
 <body>
+<header style="background-color: black; height: 80px; display: flex; align-items: center; padding: 0 20px;">
+    <div style="height: 30px; width: 150px; background-color: orange; border: none; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+        <h6 style="color: white; margin: 0;">ConstructionXpert</h6>
+    </div>
+    <div class="header-buttons">
+        <button onclick="window.location.href='projet'">Projets</button>
+        <button onclick="window.location.href='tache'">Tâches</button>
+        <button onclick="window.location.href='ressource'">Ressources</button>
+    </div>
+</header>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-8 offset-md-2">

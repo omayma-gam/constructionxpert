@@ -6,9 +6,11 @@
   <title>Connexion</title>
   <style>
     body {
-
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-image: url('https://i.pinimg.com/736x/cb/ec/dc/cbecdc10643074c69636d00585611487.jpg');
+      background-size: cover; /* Couvre toute la page */
+      background-position: center; /* Centre l'image */
+      background-repeat: no-repeat; /* Empêche la répétition */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,7 +18,7 @@
       margin: 0;
     }
     .login-container {
-      background-color: #fff;
+      background-color: rgba(255, 255, 255, 0.8); /* Fond semi-transparent */
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -36,14 +38,14 @@
     .login-container button {
       width: 100%;
       padding: 10px;
-      background-color:orange;
+      background-color: orange;
       color: #fff;
       border: none;
       border-radius: 4px;
       cursor: pointer;
     }
     .login-container button:hover {
-      background-color:lightcoral;
+      background-color: lightcoral;
     }
     .error-message {
       color: red;
@@ -51,7 +53,7 @@
     }
   </style>
 </head>
-<body style="background-image:url('image2.jpg');background-repeat: no-repeat;background-size: cover">
+<body>
 <div class="login-container">
   <h2>Connexion</h2>
   <form id="loginForm">
@@ -70,7 +72,7 @@
     const password = document.getElementById('password').value;
 
     if (username === 'admin' && password === 'admin123') {
-      window.location.href = 'accueil.html'; // Redirige vers la page d'accueil
+      window.location.href = 'home.jsp'; // Redirige vers la page d'accueil
     } else {
       document.getElementById('errorMessage').textContent = 'Nom d\'utilisateur ou mot de passe incorrect';
     }

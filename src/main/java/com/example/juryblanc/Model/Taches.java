@@ -1,6 +1,5 @@
 package com.example.juryblanc.Model;
 
-import java.awt.*;
 import java.util.Date;
 
 public class Taches {
@@ -12,33 +11,36 @@ public class Taches {
     private String description;
     private String ressourcenecessaire;
 
-    public Taches(int id, String nomdutache, java.sql.Date datededebut, String datededefin, String description, String ressourcenecessaire) {
+    // Constructeur par défaut
+    public Taches() {
     }
 
-    public Taches(int id, String nomdutache, java.sql.Date datdedebut, java.sql.Date datedefin, String description, String ressourcenecessaire) {
+    // Constructeur avec tous les champs
+    public Taches(int id, int projet_id, String nomdutache, Date datededebut, Date datedefin, String description, String ressourcenecessaire) {
+        this.id = id;
+        this.projet_id = projet_id;
+        this.nomdutache = nomdutache;
+        this.datededebut = datededebut;
+        this.datedefin = datedefin;
+        this.description = description;
+        this.ressourcenecessaire = ressourcenecessaire;
     }
 
-    public Taches(int id, String nomduprojet, Date datededebut, Date datededefin, String description, String ressourcenecessaire) {
-
-    }
-
-    public Taches(int id, int projetId, String nomdutache, java.sql.Date datededebut, String datedefin, String description, String ressourcenecessaire) {
-    }
-
-    public Taches(int id, int projetId, String nomdutache, java.sql.Date datdedebut, java.sql.Date datedefin, String description, String ressourcenecessaire) {
-
-    }
-
-    public Taches(int id, int projetId, String nomduprojet, Date datededebut, Date datedefin, String description, String ressourcenecessaire) {
-    }
-
-
+    // Getters et setters
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getProjet_id() {
+        return projet_id;
+    }
+
+    public void setProjet_id(int projet_id) {
+        this.projet_id = projet_id;
     }
 
     public String getNomdutache() {
@@ -57,6 +59,14 @@ public class Taches {
         this.datededebut = datededebut;
     }
 
+    public Date getDatedefin() {
+        return datedefin;
+    }
+
+    public void setDatedefin(Date datedefin) {
+        this.datedefin = datedefin;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -71,21 +81,5 @@ public class Taches {
 
     public void setRessourcenecessaire(String ressourcenecessaire) {
         this.ressourcenecessaire = ressourcenecessaire;
-    }
-
-    public Date getDatedefin() {
-        return datedefin;
-    }
-
-    public void setDatedefin(Date datedefin) {
-        this.datedefin = datedefin;
-    }
-
-    public int getProjet_id() {
-        return projet_id;
-    }
-
-    public void setProjet_id(int projet_id) {
-        this.projet_id = projet_id;
     }
 }

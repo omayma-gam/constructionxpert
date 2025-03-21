@@ -15,15 +15,17 @@ public class TacheDAO {
     }
 
     public void ajouterTache(Taches tache) throws SQLException {
-        String sql = "INSERT INTO taches(projet_id, nomdutache, datededebut, datedefin, description, ressourcenecessaire) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, tache.getProjet_id());
-            preparedStatement.setString(2, tache.getNomdutache());
-            preparedStatement.setDate(3, new java.sql.Date(tache.getDatededebut().getTime()));
-            preparedStatement.setDate(4, new java.sql.Date(tache.getDatedefin().getTime()));
-            preparedStatement.setString(5, tache.getDescription());
-            preparedStatement.setString(6, tache.getRessourcenecessaire());
-            preparedStatement.executeUpdate();
+        String sql = "INSERT INTO taches (projet_id, nomdutache, datededebut, datedefin, description, ressourcenecessaire) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, tache.getProjet_id());
+            pstmt.setString(2, tache.getNomdutache());
+            pstmt.setDate(3, tache.getDatededebut() != null ? new java.sql.Date(tache.getDatededebut().getTime()) : null);
+            pstmt.setDate(4, tache.getDatedefin() != null ? new java.sql.Date(tache.getDatedefin().getTime()) : null);
+            pstmt.setString(5, tache.getDescription());
+            pstmt.setString(6, tache.getRessourcenecessaire());
+            pstmt.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
