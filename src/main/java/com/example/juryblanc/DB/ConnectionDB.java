@@ -32,7 +32,7 @@ public class ConnectionDB {
                     + "datedefin DATE NOT NULL,"
                     + "description VARCHAR(255),"
                     + "ressourcenecessaire VARCHAR(255),"
-                    + "projet_id INTEGER,"
+                    + "projet_id INT NOT NULL,"
                     + "FOREIGN KEY (projet_id) REFERENCES projets(id) ON DELETE CASCADE)";
             stm.executeUpdate(tachestable);
 

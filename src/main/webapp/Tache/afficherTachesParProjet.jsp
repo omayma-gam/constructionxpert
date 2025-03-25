@@ -1,11 +1,11 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Liste des Tâches | ConstructionXpert</title>
+    <title>Tâches du Projet | ConstructionXpert</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -18,7 +18,7 @@
         }
 
         body {
-            background: url("https://i.pinimg.com/736x/79/70/73/7970730f1521ed036775c34bb67eeae6.jpg") no-repeat center center fixed;
+            background: url("https://i.pinimg.com/736x/db/e2/66/dbe26659ab109737917d8ef54eb88355.jpg") no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -66,14 +66,12 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            text-decoration: none;
         }
 
         .nav-btn:hover {
             background-color: var(--primary-color);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            color: white;
         }
 
         .page-title {
@@ -93,14 +91,12 @@
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        .card-header-custom {
-            background: linear-gradient(135deg, var(--primary-color), #E05D00) !important;
-            color: white !important;
-            border-radius: 10px 10px 0 0 !important;
-            padding: 1.25rem;
+        .table-header {
+            background: linear-gradient(135deg, var(--primary-color), #E05D00);
+            color: white;
         }
 
-        .btn-primary-custom {
+        .new-task-btn {
             background: linear-gradient(135deg, var(--primary-color), #E05D00);
             border: none;
             border-radius: 8px;
@@ -108,16 +104,33 @@
             font-weight: 500;
             transition: all 0.3s ease;
             color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .btn-primary-custom:hover {
+        .new-task-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-            opacity: 0.9;
+            color: white;
         }
 
-        .table-header {
-            background: linear-gradient(135deg, var(--primary-color), #E05D00);
+        .back-btn {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             color: white;
         }
 
@@ -152,6 +165,14 @@
             padding: 1.5rem;
             text-align: center;
         }
+
+        .project-info {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -175,11 +196,22 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="page-title">
-            <h3><i class="fas fa-list-check me-2"></i> Liste des Tâches</h3>
+            <h3><i class="fas fa-list-check me-2"></i> Tâches du Projet: ${projet.nomduprojet}</h3>
         </div>
-        <a href="tache?action=new" class="btn btn-primary-custom">
-            <i class="fas fa-plus-circle"></i> Nouvelle Tâche
-        </a>
+        <div>
+            <a href="tache?action=new&projet_id=${projet.id}" class="btn new-task-btn">
+                <i class="fas fa-plus-circle"></i> Nouvelle Tâche
+            </a>
+            <a href="tache?action=list" class="btn back-btn ms-2">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+        </div>
+    </div>
+
+    <div class="project-info">
+        <p class="mb-1"><strong>Date de début:</strong> <fmt:formatDate value="${projet.datededebut}" pattern="dd/MM/yyyy" /></p>
+        <p class="mb-1"><strong>Date de fin:</strong> <fmt:formatDate value="${projet.datefin}" pattern="dd/MM/yyyy" /></p>
+        <p class="mb-0"><strong>Description:</strong> ${projet.description}</p>
     </div>
 
     <div class="card-container">
@@ -197,7 +229,6 @@
                     <thead class="table-header">
                     <tr>
                         <th>ID</th>
-                        <th>Projet</th>
                         <th>Date Début</th>
                         <th>Date Fin</th>
                         <th>Description</th>
@@ -209,7 +240,6 @@
                     <c:forEach var="tache" items="${taches}">
                         <tr>
                             <td>${tache.id}</td>
-                            <td>${tache.projet_id}</td>
                             <td><fmt:formatDate value="${tache.datededebut}" pattern="dd/MM/yyyy" /></td>
                             <td><fmt:formatDate value="${tache.datedefin}" pattern="dd/MM/yyyy" /></td>
                             <td>${tache.description}</td>
@@ -219,7 +249,7 @@
                                     <a href="tache?action=edit&id=${tache.id}" class="btn action-btn edit-btn">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <a href="#" onclick="confirmDelete(${tache.id})" class="btn action-btn delete-btn">
+                                    <a href="#" onclick="confirmDelete(${tache.id}, ${projet.id})" class="btn action-btn delete-btn">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </div>
@@ -234,11 +264,10 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 <script>
-    function confirmDelete(id) {
+    function confirmDelete(tacheId, projetId) {
         if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
-            window.location.href = "tache?action=delete&id=" + id;
+            window.location.href = "tache?action=delete&id=" + tacheId + "&projet_id=" + projetId;
         }
     }
 </script>

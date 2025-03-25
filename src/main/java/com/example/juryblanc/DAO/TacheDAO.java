@@ -24,8 +24,6 @@ public class TacheDAO {
             pstmt.setString(5, tache.getDescription());
             pstmt.setString(6, tache.getRessourcenecessaire());
             pstmt.executeUpdate();
-        }catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

@@ -26,6 +26,36 @@ public class Taches {
         this.ressourcenecessaire = ressourcenecessaire;
     }
 
+
+    public Taches(int projetId, java.sql.Date datededebut, java.sql.Date datedefin, String description, String ressourcenecessaire) {
+        this.projet_id = projetId;
+        this.datededebut = datededebut;
+        this.datedefin = datedefin;
+        this.description = description;
+        this.ressourcenecessaire = ressourcenecessaire;
+
+    }
+
+    public Taches(int id, int projetId, Date datededebut, Date datedefin, String description, String ressourcenecessaire) {
+
+        this.id = id;
+        this.projet_id = projetId;
+        this.datededebut = datededebut;
+        this.datedefin = datedefin;
+        this.description = description;
+        this.ressourcenecessaire = ressourcenecessaire;
+    }
+
+    public Taches(int projetId, String nomdutache, java.sql.Date datededebut, java.sql.Date datedefin, String description, String ressourcenecessaire) {
+        this.projet_id = projetId;
+        this.nomdutache = nomdutache;
+        this.datededebut = datededebut;
+        this.datedefin = datedefin;
+        this.description = description;
+        this.ressourcenecessaire = ressourcenecessaire;
+
+    }
+
     // Getters et setters
     public int getId() {
         return id;
