@@ -18,7 +18,7 @@
         }
 
         body {
-            background: url("https://i.pinimg.com/736x/79/70/73/7970730f1521ed036775c34bb67eeae6.jpg") no-repeat center center fixed;
+            background: url("https://i.pinimg.com/736x/e8/2c/08/e82c087782d016bde52997809b34b570.jpg") no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -76,28 +76,13 @@
             color: white;
         }
 
-        .page-title {
-            background: linear-gradient(135deg, var(--primary-color), #E05D00);
-            color: white;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-        }
-
         .card-container {
             background-color: var(--card-bg);
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.8);
             padding: 2rem;
             border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header-custom {
-            background: linear-gradient(135deg, var(--primary-color), #E05D00) !important;
-            color: white !important;
-            border-radius: 10px 10px 0 0 !important;
-            padding: 1.25rem;
+            margin-top: 1.5rem;
         }
 
         .btn-primary-custom {
@@ -114,43 +99,52 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             opacity: 0.9;
+            color: white;
+        }
+
+        .page-title {
+            background: linear-gradient(135deg, var(--primary-color), #E05D00);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .table-header {
-            background: linear-gradient(135deg, var(--primary-color), #E05D00);
+            background-color: var(--secondary-color);
             color: white;
         }
 
         .action-btn {
+            padding: 0.5rem;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 8px;
-            padding: 6px 12px;
             transition: all 0.3s ease;
         }
 
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
         .edit-btn {
-            background-color: #17A2B8;
+            background-color: #0d6efd;
             color: white;
         }
 
         .delete-btn {
-            background-color: #DC3545;
+            background-color: #dc3545;
             color: white;
         }
 
-        .table-hover tbody tr:hover {
-            background-color: rgba(255, 107, 0, 0.05);
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .no-tasks {
-            background-color: var(--light-bg);
-            border-radius: 8px;
-            padding: 1.5rem;
             text-align: center;
+            padding: 2rem;
+            color: var(--secondary-color);
         }
     </style>
 </head>
@@ -166,7 +160,7 @@
         <a href="tache?action=list" class="nav-btn">
             <i class="fas fa-tasks"></i> Tâches
         </a>
-        <a href="Ressource/afficherRessource.jsp" class="nav-btn">
+        <a href="ressource?action=afficher" class="nav-btn">
             <i class="fas fa-tools"></i> Ressources
         </a>
     </div>
@@ -178,7 +172,7 @@
             <h3><i class="fas fa-list-check me-2"></i> Liste des Tâches</h3>
         </div>
         <a href="tache?action=new" class="btn btn-primary-custom">
-            <i class="fas fa-plus-circle"></i> Nouvelle Tâche
+            <i class="fas fa-plus-circle me-2"></i> Nouvelle Tâche
         </a>
     </div>
 
@@ -196,7 +190,6 @@
                 <table class="table table-hover">
                     <thead class="table-header">
                     <tr>
-                        <th>ID</th>
                         <th>Projet</th>
                         <th>Date Début</th>
                         <th>Date Fin</th>
@@ -208,7 +201,6 @@
                     <tbody>
                     <c:forEach var="tache" items="${taches}">
                         <tr>
-                            <td>${tache.id}</td>
                             <td>${tache.projet_id}</td>
                             <td><fmt:formatDate value="${tache.datededebut}" pattern="dd/MM/yyyy" /></td>
                             <td><fmt:formatDate value="${tache.datedefin}" pattern="dd/MM/yyyy" /></td>
@@ -216,10 +208,10 @@
                             <td>${tache.ressourcenecessaire}</td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <a href="tache?action=edit&id=${tache.id}" class="btn action-btn edit-btn">
+                                    <a href="tache?action=modifier&id=${tache.id}" class="btn action-btn edit-btn" title="Modifier">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <a href="#" onclick="confirmDelete(${tache.id})" class="btn action-btn delete-btn">
+                                    <a href="#" onclick="confirmDelete(${tache.id})" class="btn action-btn delete-btn" title="Supprimer">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </div>

@@ -112,4 +112,5 @@ public class Taches {
     public void setRessourcenecessaire(String ressourcenecessaire) {
         this.ressourcenecessaire = ressourcenecessaire;
     }
+
 }

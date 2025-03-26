@@ -163,7 +163,7 @@
         <a href="tache?action=list" class="nav-btn">
             <i class="fas fa-tasks"></i> Tâches
         </a>
-        <a href="Ressource/afficherRessource.jsp" class="nav-btn">
+        <a href="ressource?action=afficher" class="nav-btn">
             <i class="fas fa-tools"></i> Ressources
         </a>
     </div>

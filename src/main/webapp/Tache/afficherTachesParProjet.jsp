@@ -18,7 +18,7 @@
         }
 
         body {
-            background: url("https://i.pinimg.com/736x/db/e2/66/dbe26659ab109737917d8ef54eb88355.jpg") no-repeat center center fixed;
+            background: url("https://i.pinimg.com/736x/e8/2c/08/e82c087782d016bde52997809b34b570.jpg") no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -66,21 +66,14 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none;
         }
 
         .nav-btn:hover {
             background-color: var(--primary-color);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .page-title {
-            background: linear-gradient(135deg, var(--primary-color), #E05D00);
             color: white;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
         }
 
         .card-container {
@@ -89,14 +82,17 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.8);
             padding: 2rem;
             border: 1px solid rgba(0, 0, 0, 0.1);
+            margin-top: 1.5rem;
         }
 
-        .table-header {
-            background: linear-gradient(135deg, var(--primary-color), #E05D00);
-            color: white;
+        .card-header-custom {
+            background: linear-gradient(135deg, var(--primary-color), #E05D00) !important;
+            color: white !important;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 1.25rem;
         }
 
-        .new-task-btn {
+        .btn-primary-custom {
             background: linear-gradient(135deg, var(--primary-color), #E05D00);
             border: none;
             border-radius: 8px;
@@ -104,9 +100,75 @@
             font-weight: 500;
             transition: all 0.3s ease;
             color: white;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            opacity: 0.9;
+            color: white;
+        }
+
+        .page-title {
+            background: linear-gradient(135deg, var(--primary-color), #E05D00);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-info {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-header {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .action-btn {
+            padding: 0.5rem;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .no-tasks {
+            text-align: center;
+            padding: 2rem;
+            color: var(--secondary-color);
+        }
+
+        .new-task-btn {
+            background: linear-gradient(135deg, var(--primary-color), #E05D00);
+            color: white;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .new-task-btn:hover {
@@ -116,62 +178,19 @@
         }
 
         .back-btn {
-            background: linear-gradient(135deg, #6c757d, #495057);
-            border: none;
+            background-color: #6c757d;
+            color: white;
             border-radius: 8px;
-            padding: 10px 25px;
+            padding: 10px 20px;
             font-weight: 500;
             transition: all 0.3s ease;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .back-btn:hover {
+            background-color: #5a6268;
+            color: white;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-            color: white;
-        }
-
-        .action-btn {
-            border-radius: 8px;
-            padding: 6px 12px;
-            transition: all 0.3s ease;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .edit-btn {
-            background-color: #17A2B8;
-            color: white;
-        }
-
-        .delete-btn {
-            background-color: #DC3545;
-            color: white;
-        }
-
-        .table-hover tbody tr:hover {
-            background-color: rgba(255, 107, 0, 0.05);
-        }
-
-        .no-tasks {
-            background-color: var(--light-bg);
-            border-radius: 8px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .project-info {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -187,7 +206,7 @@
         <a href="tache?action=list" class="nav-btn">
             <i class="fas fa-tasks"></i> Tâches
         </a>
-        <a href="Ressource/afficherRessource.jsp" class="nav-btn">
+        <a href="ressource?action=afficher" class="nav-btn">
             <i class="fas fa-tools"></i> Ressources
         </a>
     </div>
@@ -200,10 +219,10 @@
         </div>
         <div>
             <a href="tache?action=new&projet_id=${projet.id}" class="btn new-task-btn">
-                <i class="fas fa-plus-circle"></i> Nouvelle Tâche
+                <i class="fas fa-plus-circle me-2"></i> Nouvelle Tâche
             </a>
             <a href="tache?action=list" class="btn back-btn ms-2">
-                <i class="fas fa-arrow-left"></i> Retour
+                <i class="fas fa-arrow-left me-2"></i> Retour
             </a>
         </div>
     </div>
@@ -228,7 +247,6 @@
                 <table class="table table-hover">
                     <thead class="table-header">
                     <tr>
-                        <th>ID</th>
                         <th>Date Début</th>
                         <th>Date Fin</th>
                         <th>Description</th>
@@ -239,17 +257,16 @@
                     <tbody>
                     <c:forEach var="tache" items="${taches}">
                         <tr>
-                            <td>${tache.id}</td>
                             <td><fmt:formatDate value="${tache.datededebut}" pattern="dd/MM/yyyy" /></td>
                             <td><fmt:formatDate value="${tache.datedefin}" pattern="dd/MM/yyyy" /></td>
                             <td>${tache.description}</td>
                             <td>${tache.ressourcenecessaire}</td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <a href="tache?action=edit&id=${tache.id}" class="btn action-btn edit-btn">
+                                    <a href="tache?action=modifier&id=${tache.id}" class="btn action-btn edit-btn" title="Modifier">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
-                                    <a href="#" onclick="confirmDelete(${tache.id}, ${projet.id})" class="btn action-btn delete-btn">
+                                    <a href="#" onclick="confirmDelete(${tache.id}, ${projet.id})" class="btn action-btn delete-btn" title="Supprimer">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </div>
@@ -264,6 +281,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 <script>
     function confirmDelete(tacheId, projetId) {
         if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
