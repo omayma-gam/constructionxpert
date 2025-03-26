@@ -22,11 +22,10 @@ ConstructionXpert Services Solution est une application de gestion de projets ba
 
 **Outils** : Git (contrôle de version), Figma (maquettes)
 
-### UML Diagrams
-
-**1-Diagramme de classe:**
-![diagramme](Capture d’écran 2025-03-24 154520.png)
-**2-Diagramme de cas d'utulisation :**
-![diagramme](Capture d’écran 2025-03-24 154631.png)
-**3-Diagramme de séquence :**
-![diagramme](Capture d’écran 2025-03-24 154941.png)
+UML Diagrams
+1-Diagramme de classe :
+![img](Diagramme/class.png)
+2-Diagramme de séquence :
+![img](Diagramme/séquence.png)
+3-Diagramme de cas d'utilisation :
+![img](Diagramme/use_case.png)
